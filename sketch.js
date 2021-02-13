@@ -1,99 +1,90 @@
-
 const Engine = Matter.Engine;
-const World = Matter.World;
+const World= Matter.World;
 const Bodies = Matter.Bodies;
-const Body = Matter.Body;
+const Constraint = Matter.Constraint
 
-const Constraint=Matter.Constraint;
-const Mouse = Matter.Mouse;
-const MouseConstraint = Matter.MouseConstraint;
+var engine, world;
+var box1;
 
-var  pendulumDiameter=50;
-
-
-function preload()
-{
-
-	
+function preload(){
+    backgroundImg = loadImage("GamingBackground.png")
 }
 
-function setup() {
-	canvas=createCanvas(800, 800);
-
-
+function setup(){
+    var canvas = createCanvas(1515, 725);
     engine = Engine.create();
     world = engine.world;
 
-    let canvasmouse=Mouse.create(canvas.elt);
-     canvasmouse.pixelRatio=pixelDensity();
-     
-     var options={
-       mouse:canvasmouse
-     }
+    box1 = new Box(800,100,70,70);
+    box2 = new Box(800,100,70,70);
+    box3 = new Box(800,100,70,70);
+    box4 = new Box(800,100,70,70);
+    box5 = new Box(800,100,70,70);
+    box6 = new Box(800,100,70,70);
 
-     mConstraint=MouseConstraint.create(engine,options);
-     World.add(world,mConstraint);
+    box7= new Box(700, 100, 70, 70);
+    box8= new Box(700, 100, 70, 70);
+    box9= new Box(700, 100, 70, 70);
+    box10= new Box(700, 100, 70, 70);
+    box11= new Box(700, 100, 70, 70);
+    box12= new Box(700, 100, 70, 70);
 
-    pendulum1=new Pendulum(300,350,50);
-    pendulum2=new Pendulum(350,350,50);
-    pendulum3=new Pendulum(400,350,50);
-    pendulum4=new Pendulum(450,350,50);
-    pendulum5=new Pendulum(500,350,50);
-    roof1=new roof(400,100,300,40)
-    ground=new roof(200,700,900,20)
-    sling1=new Sling( pendulum1.body,roof1.body,-pendulumDiameter*2,0)
-    sling2=new Sling( pendulum2.body,roof1.body,-pendulumDiameter*1,0)
-    sling3=new Sling( pendulum3.body,roof1.body,pendulumDiameter*0,0)
-    sling4=new Sling( pendulum4.body,roof1.body,pendulumDiameter*1,0)
-    sling5=new Sling( pendulum5.body,roof1.body,pendulumDiameter*2,0)
+    box13 = new Box(600, 100, 70, 70);
+    box14 = new Box(600, 100, 70, 70);
+    box15 = new Box(600, 100, 70, 70);
+    box16 = new Box(600, 100, 70, 70);
+    box17 = new Box(600, 100, 70, 70);
+    box18 = new Box(600, 100, 70, 70);
+    box19 = new Box(600, 100, 70, 70);
+    box20 = new Box(600, 100, 70, 70);
 
-	  Engine.run(engine);
-  
+    
+
+    ground = new Ground(0, 600, width+width/2+90, 25);
+
+    monster = new Monster(1100, 500, 200)
+
+    ball = new Hero(200, 200, 80);
+
+    rope = new Rope(ball.body, {x:300, y:50})
 }
 
+function draw(){
+    background(backgroundImg);
+    Engine.update(engine);
+    box1.display();
+    box2.display();
+    box3.display();
+    box4.display();
+    box5.display();
+    box6.display();
+    box7.display();
+    box8.display();
+    box9.display();
+    box10.display();
+    box11.display();
+    box12.display();
+    box13.display();
+    box14.display();
+    box15.display();
+    box16.display();
+    box17.display();
+    box18.display();
+    box19.display();
+    box20.display();
+    ball.display();
 
-function draw() {
-  background("pink");
-  rectMode(CENTER);
-  
-  
-  textSize(35);
-  fill("red");
-  text("Drag the first pendulum", 230, 500);
+    monster.display();
 
-  textSize(35);
-  fill("purple");
-  text("NEWTON'S CRADDLE", 230, 50);
-  pendulum1.display();
-  pendulum2.display();
+    ground.display();
 
-  pendulum3.display();
-  pendulum4.display();
-
-  pendulum5.display();
-  ground.display();
-
-  roof1.display();
-  sling1.display();
-
-  sling2.display();
-  sling3.display();
-
-  sling4.display();
-  sling5.display();
-
-  drawSprites();
+    fill(37, 247, 58);
+    stroke("black")
+    strokeWeight(2);
+    textSize(50)
+    text("KILL THE MONSTER", 500, 700)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
+function mouseDragged(){
+    Matter.Body.setPosition(ball.body, {x:mouseX, y:mouseY})
+}
